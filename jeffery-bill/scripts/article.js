@@ -13,7 +13,7 @@ function Article (rawDataObj) {
 Article.all = [];
 
 // COMMENT: Why isn't this method written as an arrow function?
-// Does refer to contextual this.
+// It refers to contextual this.
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
 
@@ -52,13 +52,12 @@ Article.fetchAll = () => {
       url: 'data/hackerIpsum.json',
       method: 'GET',
       success: function(data) {
+        console.log(data)
+        // We first get the data using ajax because we cant manipulate the data if we dont have it. Then we set the local storage so if this function runs again we will trigger the IF not the ELSE. then we load all of the data into the constructor function to get it into the objects we need. And then we initialize the page again since we have all of our object data. :) 
         localStorage.setItem('rawData', JSON.stringify(data));
         Article.loadAll(JSON.parse(localStorage.rawData))
         articleView.initIndexPage();
       }
     })
-    // Article.all.forEach(article => {
-    //   $('#articles').append(article.toHtml())
-    // });
   }
 }
