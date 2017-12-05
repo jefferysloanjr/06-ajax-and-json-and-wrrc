@@ -44,7 +44,6 @@ Article.loadAll = rawData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
-    console.log('if')
     Article.loadAll(JSON.parse(localStorage.rawData));
 
   } else {
@@ -52,7 +51,6 @@ Article.fetchAll = () => {
       url: 'data/hackerIpsum.json',
       method: 'GET',
       success: function(data) {
-        console.log(data)
         // We first get the data using ajax because we cant manipulate the data if we dont have it. Then we set the local storage so if this function runs again we will trigger the IF not the ELSE. then we load all of the data into the constructor function to get it into the objects we need. And then we initialize the page again since we have all of our object data. :) 
         localStorage.setItem('rawData', JSON.stringify(data));
         Article.loadAll(JSON.parse(localStorage.rawData))
